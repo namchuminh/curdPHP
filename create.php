@@ -3,11 +3,7 @@
   include './crud/crud.php';
   if(!isset($_SESSION["taiKhoan"])){
     return header("Location: http://localhost/crud/");
-  }else if(!isset($_GET['maSV'])){
-    return header("Location: http://localhost/crud/home.php");
   }
-
-  $data = getByMaSV($_GET['maSV']);
 
   if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $maSV = $_GET['maSV'];
@@ -19,18 +15,18 @@
     $taiKhoan = $_POST['taiKhoan'];
     $matKhau = $_POST['matKhau'];
     $phanQuyen = $_POST['phanQuyen'];
-    if(update($tenSinhVien, $namSinh, $queQuan, $soDienThoai, $maLop, $taiKhoan, $matKhau, $phanQuyen, $maSV) == TRUE){
-      echo "<script>alert('Cập nhật thành công!')</script>";
+    if(create($tenSinhVien, $namSinh, $queQuan, $soDienThoai, $maLop, $taiKhoan, $matKhau) == TRUE){
+      echo "<script>alert('Thêm sinh viên thành công!')</script>";
       header("Location: http://localhost/crud/home.php");
     }else{
-      echo "<script>alert('Cập nhật không thành công!')</script>";
+      echo "<script>alert('Thêm sinh viên không thành công!')</script>";
     }
   }
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Sửa Sinh Viên</title>
+  <title>Thêm Sinh Viên</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -40,49 +36,45 @@
 <body>
 
 <div class="container">
-  <h2><a href="http://localhost/crud/home.php">Trang Chủ >> </a>Sửa Thông Tin Sinh Viên</h2>
+  <h2><a href="http://localhost/crud/home.php">Trang Chủ >> </a>Thêm Thông Tin Sinh Viên</h2>
   <form method="POST">
     <div class="row">
       <div class="form-group col-md-6">
         <label for="tenSinhVien">Tên Sinh Viên</label>
-        <input type="text" class="form-control"  placeholder="Tên sinh viên" name="tenSinhVien" value="<?php echo $data[0]["tenSinhVien"];?>">
+        <input type="text" class="form-control"  placeholder="Tên sinh viên" name="tenSinhVien">
       </div>
       <div class="form-group col-md-6">
         <label for="namSinh">Năm Sinh</label>
-        <input type="text" class="form-control" placeholder="Năm sinh" name="namSinh" value="<?php echo $data[0]["namSinh"];?>">
+        <input type="date" class="form-control" placeholder="Năm sinh" name="namSinh">
       </div>
     </div>
     <div class="row">
       <div class="form-group col-md-6">
         <label for="queQuan">Quê Quán</label>
-        <input type="text" class="form-control" placeholder="Quê quán" name="queQuan" value="<?php echo $data[0]["queQuan"];?>">
+        <input type="text" class="form-control" placeholder="Quê quán" name="queQuan">
       </div>
       <div class="form-group col-md-6">
         <label for="soDienThoai">Số Điện Thoại</label>
-        <input type="text" class="form-control" placeholder="Số điện thoại" name="soDienThoai" value="<?php echo $data[0]["soDienThoai"];?>">
+        <input type="text" class="form-control" placeholder="Số điện thoại" name="soDienThoai">
       </div>
     </div>
     <div class="row">
       <div class="form-group col-md-6">
         <label for="maLop">Mã Lớp</label>
-        <input type="text" class="form-control"  placeholder="Mã lớp" name="maLop" value="<?php echo $data[0]["maLop"];?>">
+        <input type="text" class="form-control"  placeholder="Mã lớp" name="maLop">
       </div>
       <div class="form-group col-md-6">
         <label for="taiKhoan">Tài Khoản</label>
-        <input type="text" class="form-control"  placeholder="Tài khoản" name="taiKhoan" value="<?php echo $data[0]["taiKhoan"];?>">
+        <input type="text" class="form-control"  placeholder="Tài khoản" name="taiKhoan">
       </div>
     </div>
     <div class="row">
       <div class="form-group col-md-6">
         <label for="matKhau">Mật Khẩu</label>
-        <input type="text" class="form-control" placeholder="Mật khẩu" name="matKhau" value="<?php echo $data[0]["matKhau"];?>">
-      </div>
-      <div class="form-group col-md-6">
-        <label for="phanQuyen">Phân Quyền</label>
-        <input type="text" class="form-control" id="pwd" placeholder="Phân quyền" name="phanQuyen" value="<?php echo $data[0]["phanQuyen"];?>">
+        <input type="text" class="form-control" placeholder="Mật khẩu" name="matKhau">
       </div>
     </div>
-    <button type="submit" class="btn btn-default ">Sửa</button>
+    <button type="submit" class="btn btn-default ">Thêm</button>
   </form>
 </div>
 

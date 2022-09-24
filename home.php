@@ -19,8 +19,20 @@
 <body>
 
 <div class="container">
-  <h2>CURD Sinh Viên</h2>
-  <p>Chức năng gồm: hiển thị, thêm, sửa, xóa sinh viên!</p>            
+	<div class="row">
+		<div class="col-md-8">
+			<h2>CURD Sinh Viên</h2>
+  		<p>Chức năng gồm: hiển thị, thêm, sửa, xóa sinh viên!</p>   
+		</div>
+		<div class="col-md-4 text-right" style="padding-top: 25px;">
+			<span>Xin chào, <?php echo $_SESSION['taiKhoan']; ?></span>
+			<a href="http://localhost/crud/logout.php">| Đăng Xuất</a>
+			<div style="margin-top: 15px;">
+				<a href="http://localhost/crud/create.php">Thêm Sinh Viên</a>
+			</div>
+		</div>
+	</div>
+           
   <table class="table table-striped">
     <thead>
       <tr>
@@ -50,13 +62,13 @@
 				<td><?php echo $data[$i]["phanQuyen"]; ?></td>
 				<td>
 					<a href="http://localhost/crud/update.php?maSV=<?php echo $data[$i]["maSV"]; ?>" >Sửa</a>
-					<a href="http://localhost/crud/delete.php?maSV=<?php echo $data[$i]["maSV"]; ?>" style="margin-left: 15px;">Xóa</a>
+					<a href="#" style="margin-left: 15px;" class="xoa" value="<?php echo $data[$i]["maSV"]; ?>">Xóa</a>
 				</td>
 			</tr>
       	<?php }?>
     </tbody>
   </table>
 </div>
-
+<script src="static/index.js"></script>
 </body>
 </html>

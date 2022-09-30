@@ -17,6 +17,7 @@
     if($last_id != FALSE){
       echo "<script>alert('Thêm sinh viên thành công!')</script>";
       echo "<script>alert('Chèn bản ghi thành công. ID đã chèn cuối cùng là: ".$last_id."')</script>";
+      header("Location: http://localhost/crud/home.php");
     }else{
       echo "<script>alert('Thêm sinh viên không thành công!')</script>";
     }

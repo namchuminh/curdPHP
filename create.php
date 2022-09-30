@@ -6,7 +6,6 @@
   }
 
   if($_SERVER['REQUEST_METHOD'] == 'POST'){
-    $maSV = $_GET['maSV'];
     $tenSinhVien = $_POST['tenSinhVien'];
     $namSinh = $_POST['namSinh'];
     $queQuan = $_POST['queQuan'];
@@ -14,10 +13,10 @@
     $maLop = $_POST['maLop'];
     $taiKhoan = $_POST['taiKhoan'];
     $matKhau = $_POST['matKhau'];
-    $phanQuyen = $_POST['phanQuyen'];
-    if(create($tenSinhVien, $namSinh, $queQuan, $soDienThoai, $maLop, $taiKhoan, $matKhau) == TRUE){
+    $last_id = create($tenSinhVien, $namSinh, $queQuan, $soDienThoai, $maLop, $taiKhoan, $matKhau);
+    if($last_id != FALSE){
       echo "<script>alert('Thêm sinh viên thành công!')</script>";
-      header("Location: http://localhost/crud/home.php");
+      echo "<script>alert('Chèn bản ghi thành công. ID đã chèn cuối cùng là: ".$last_id."')</script>";
     }else{
       echo "<script>alert('Thêm sinh viên không thành công!')</script>";
     }

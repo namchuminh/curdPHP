@@ -7,7 +7,7 @@ function create($tenSinhVien, $namSinh, $queQuan, $soDienThoai, $maLop, $taiKhoa
 	$sql = "INSERT INTO sinhvien (tenSinhVien, namSinh, queQuan, soDienThoai, maLop, taiKhoan, matKhau)
 		VALUES ('$tenSinhVien', '$namSinh', '$queQuan', '$soDienThoai', '$maLop', '$taiKhoan', '$matKhau')";
 	if ($conn->query($sql) === TRUE) {
-	  	return TRUE;
+	  	return $conn->insert_id;
 	} else {
 	  	return FALSE;
 	}

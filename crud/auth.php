@@ -12,6 +12,16 @@ function checkLogin($taiKhoan, $matKhau){
 	}
 }
 
+function checkRegister($tenSinhVien, $namSinh, $queQuan, $soDienThoai, $maLop, $taiKhoan, $matKhau){
+	$conn = connectDB();
+	$sql = "INSERT INTO sinhvien (tenSinhVien, namSinh, queQuan, soDienThoai, maLop, taiKhoan, matKhau)
+		VALUES ('$tenSinhVien', '$namSinh', '$queQuan', '$soDienThoai', '$maLop', '$taiKhoan', '$matKhau')";
+	if ($conn->query($sql) === TRUE) {
+	  	return TRUE;
+	} else {
+	  	return FALSE;
+	}
+}
 
 
 ?>

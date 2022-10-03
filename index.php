@@ -31,13 +31,6 @@
 <body>
 	<div class="login-page">
 		<div class="form">
-			<form class="register-form" method="post">
-			  <input type="text" placeholder="name"/>
-			  <input type="password" placeholder="password"/>
-			  <input type="text" placeholder="email address"/>
-			  <button>create</button>
-			  <p class="message">Already registered? <a href="#">Sign In</a></p>
-			</form>
 			<form class="login-form" method="post">
 			  <input type="text" placeholder="tài khoản" name="taiKhoan" />
 			  <input type="password" placeholder="mật khẩu" name="matKhau" />
@@ -49,7 +42,7 @@
 			  			} 
 			  		?>
 			  </span>
-			  <p class="message">Not registered? <a href="#">Create an account</a></p>
+			  <p class="message">Not registered? <a href="register.php">Create an account</a></p>
 			</form>
 		</div>
 	</div>

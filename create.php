@@ -1,82 +1,121 @@
-<?php 
-  session_start();
+<?php
   include './crud/crud.php';
-  if(!isset($_SESSION["taiKhoan"])){
-    return header("Location: http://localhost/crud/");
-  }
-
+  
   if($_SERVER['REQUEST_METHOD'] == 'POST'){
-    $tenSinhVien = $_POST['tenSinhVien'];
-    $namSinh = $_POST['namSinh'];
-    $queQuan = $_POST['queQuan'];
-    $soDienThoai = $_POST['soDienThoai'];
-    $maLop = $_POST['maLop'];
-    $taiKhoan = $_POST['taiKhoan'];
-    $matKhau = $_POST['matKhau'];
-    $last_id = create($tenSinhVien, $namSinh, $queQuan, $soDienThoai, $maLop, $taiKhoan, $matKhau);
-    if($last_id != FALSE){
-      echo "<script>alert('Thêm sinh viên thành công!')</script>";
-      echo "<script>alert('Chèn bản ghi thành công. ID đã chèn cuối cùng là: ".$last_id."')</script>";
-      header("Location: http://localhost/crud/home.php");
-    }else{
-      echo "<script>alert('Thêm sinh viên không thành công!')</script>";
+    $id = $_POST['id'];
+    $productname = $_POST['productname'];
+    $price = $_POST['price'];
+    $description = $_POST['description'];
+    $categoryid = $_POST['categoryid'];
+
+    $target_dir = "uploads/";
+    $target_file = $target_dir . basename($_FILES["image"]["name"]);
+
+    $info = "";
+
+    if (file_exists($target_file)) {
+        $info = "Image already exists!";
+    } else {
+        if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {            
+            $image = $target_file;
+            $last_id = create($id, $productname, $image, $price, $description, $categoryid);
+            if(is_numeric($last_id)){
+              $info = "Product added successfully!";
+            } else {
+              $info = "Product id already exists.";
+            }
+        } else {
+            $info = "Sorry, an error occurred while uploading your file!";
+        }
     }
   }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Thêm Sinh Viên</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Product Manage</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="./static/index.css">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </head>
 <body>
+  <div class="container-xl">
+    <div class="table-responsive">
+      <div class="table-wrapper">
+        <div class="table-title">
+          <div class="row">
+            <div class="col-sm-6">
+              <h2>Manage <b>Product</b></h2>
+            </div>
+            <div class="col-sm-6">
+              <a href="./index.php" class="btn btn-success" ><i class="material-icons"></i> <span>Products List</span></a>
+            </div>
+          </div>
+        </div>
+      </div>   
+      <form class="bg-white px-3 pb-2" method="POST" enctype="multipart/form-data">
+          <div class="form-group">
+            <label>Id</label>
+            <input type="text" class="form-control" name="id" required>
+          </div>
+          <div class="form-group">
+            <label>Product Name</label>
+            <input type="text" class="form-control" name="productname" required>
+          </div>
+          <div class="form-group">
+            <label>Image</label>
+            <input class="form-control" style="height: 44px;" name="image" type="file" required>
+          </div>
+          <div class="form-group">
+            <label>Price</label>
+            <input type="number" class="form-control" name="price" required>
+          </div>  
+          <div class="form-group">
+            <label>Description</label>
+            <textarea class="form-control" name="description" required></textarea>
+          </div>
+          <div class="form-group">
+            <label>Category Id</label>
+            <input type="text" class="form-control" name="categoryid" required>
+          </div>        
+          <div class="form-group mt-5">
+            <input type="submit" style="width: 100%;" class="btn btn-success" value="Add Product">
+          </div>
+      </form>
+    </div>
+  </div>
 
-<div class="container">
-  <h2><a href="http://localhost/crud/home.php">Trang Chủ >> </a>Thêm Thông Tin Sinh Viên</h2>
-  <form method="POST">
-    <div class="row">
-      <div class="form-group col-md-6">
-        <label for="tenSinhVien">Tên Sinh Viên</label>
-        <input type="text" class="form-control"  placeholder="Tên sinh viên" name="tenSinhVien">
-      </div>
-      <div class="form-group col-md-6">
-        <label for="namSinh">Năm Sinh</label>
-        <input type="date" class="form-control" placeholder="Năm sinh" name="namSinh">
-      </div>
-    </div>
-    <div class="row">
-      <div class="form-group col-md-6">
-        <label for="queQuan">Quê Quán</label>
-        <input type="text" class="form-control" placeholder="Quê quán" name="queQuan">
-      </div>
-      <div class="form-group col-md-6">
-        <label for="soDienThoai">Số Điện Thoại</label>
-        <input type="text" class="form-control" placeholder="Số điện thoại" name="soDienThoai">
+  <?php if(!empty($info)){ ?>
+    <div class="modal fade show" style="display: block;">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <form>
+            <div class="modal-header">            
+              <h4 class="modal-title">Notification</h4>
+              <button type="button" class="close x" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">          
+              <p><?php echo $info; ?></p>
+            </div>
+            <div class="modal-footer">
+              <input type="button" class="btn btn-success x" data-dismiss="modal" value="Cancel">
+            </div>
+          </form>
+        </div>
       </div>
     </div>
-    <div class="row">
-      <div class="form-group col-md-6">
-        <label for="maLop">Mã Lớp</label>
-        <input type="text" class="form-control"  placeholder="Mã lớp" name="maLop">
-      </div>
-      <div class="form-group col-md-6">
-        <label for="taiKhoan">Tài Khoản</label>
-        <input type="text" class="form-control"  placeholder="Tài khoản" name="taiKhoan">
-      </div>
-    </div>
-    <div class="row">
-      <div class="form-group col-md-6">
-        <label for="matKhau">Mật Khẩu</label>
-        <input type="text" class="form-control" placeholder="Mật khẩu" name="matKhau">
-      </div>
-    </div>
-    <button type="submit" class="btn btn-default ">Thêm</button>
-  </form>
-</div>
-
+  <?php } ?>
+  <script src="./static/index.js"></script>
 </body>
 </html>
+
+
+

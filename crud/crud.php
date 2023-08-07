@@ -2,10 +2,10 @@
 
 include  __DIR__.'../../database/database.php';
 
-function create($tenSinhVien, $namSinh, $queQuan, $soDienThoai, $maLop, $taiKhoan, $matKhau){
+function create($id, $productname, $image, $price, $description, $categoryid){
 	$conn = connectDB();
-	$sql = "INSERT INTO sinhvien (tenSinhVien, namSinh, queQuan, soDienThoai, maLop, taiKhoan, matKhau)
-		VALUES ('$tenSinhVien', '$namSinh', '$queQuan', '$soDienThoai', '$maLop', '$taiKhoan', '$matKhau')";
+	$sql = "INSERT INTO products (`id`, `productname`, `image`, `price`, `description`, `categoryid`)
+		VALUES ('$id', '$productname', '$image', '$price', '$description', '$categoryid')";
 	if ($conn->query($sql) === TRUE) {
 	  	return $conn->insert_id;
 	} else {
@@ -16,7 +16,7 @@ function create($tenSinhVien, $namSinh, $queQuan, $soDienThoai, $maLop, $taiKhoa
 function read(){
 	$data = array();
 	$conn = connectDB();																																										
-	$sql = "SELECT * FROM sinhvien";
+	$sql = "SELECT * FROM products";
 	$result = $conn->query($sql);
 	if ($result->num_rows > 0) {
 		while($row = $result->fetch_assoc()) {
@@ -28,9 +28,9 @@ function read(){
 	}
 }
 
-function update($tenSinhVien, $namSinh, $queQuan, $soDienThoai, $maLop, $taiKhoan, $matKhau, $phanQuyen, $maSV){
+function update($id, $productname, $image, $price, $description, $categoryid){
 	$conn = connectDB();
-	$sql = "UPDATE sinhvien SET tenSinhVien = '$tenSinhVien', namSinh = '$namSinh', queQuan = '$queQuan', soDienThoai = '$soDienThoai', maLop = '$maLop', taiKhoan = '$taiKhoan', matKhau = '$matKhau', phanQuyen = '$phanQuyen'  WHERE maSV = ".$maSV;
+	$sql = "UPDATE products SET productname = '$productname', image = '$image', price = '$price', description = '$description', categoryid = '$categoryid' WHERE id = '".$id."'";
 	if ($conn->query($sql) === TRUE) {
 		return TRUE;
 	} else {
@@ -38,9 +38,9 @@ function update($tenSinhVien, $namSinh, $queQuan, $soDienThoai, $maLop, $taiKhoa
 	}
 }
 
-function delete($maSV){
+function delete($id){
 	$conn = connectDB();
-	$sql = "DELETE FROM sinhvien WHERE maSV =".$maSV;
+	$sql = "DELETE FROM products WHERE id = '".$id."'";
 	if ($conn->query($sql) === TRUE) {
 	 	return TRUE;
 	} else {
@@ -48,10 +48,10 @@ function delete($maSV){
 	}
 }
 
-function getByMaSV($maSV){
+function getById($id){
 	$data = array();
 	$conn = connectDB();																																										
-	$sql = "SELECT * FROM sinhvien WHERE maSV =".$maSV;
+	$sql = "SELECT * FROM products WHERE id = '".$id."'";
 	$result = $conn->query($sql);
 	if ($result->num_rows > 0) {
 		while($row = $result->fetch_assoc()) {

@@ -1,5 +1,5 @@
 # CURD với PHP
-Bài thực hành xây dựng các chức năng, đăng nhập, đăng xuất, hiển thị, thêm, sửa, xóa thông tin của sinh viên với ngôn ngữ PHP, HTML, CSS, JAVASCRIPT
+Bài thực hành xây dựng các chức năng, đăng nhập, đăng xuất, hiển thị, thêm, sửa, xóa thông tin của sản phẩm với ngôn ngữ PHP, HTML, CSS, JAVASCRIPT
 ## Nội dung 
 - Kết nối sơ sở dữ liệu từ PHP tới MySQL
 - Tạo truy vấn và thực thi truy vấn trong MySQL thông qua PHP
@@ -8,7 +8,7 @@ Bài thực hành xây dựng các chức năng, đăng nhập, đăng xuất, h
 - Xây dựng giao diện bằng HTML, CSS, BOOTSTRAP
 
 ## Kết quả
-Hoàn thiện các chức năng và có thể thực hiện được các chức năng chính như: Đăng nhập, đăng xuất, thêm sinh viên, sửa sinh viên, xóa sinh viên, hiển thị toàn bộ sinh viên.
+Hoàn thiện các chức năng và có thể thực hiện được các chức năng chính như: Đăng nhập, đăng xuất, thêm, sửa, xóa, hiển thị toàn bộ sản phẩm.
 
 ## Người thực hiện
 - <a href="https://www.facebook.com/namchuminhh/">Chu Minh Nam</a>

@@ -1,4 +1,9 @@
 <?php 
+  session_start();
+  if(!isset($_SESSION["logged"])){
+    header("Location: ./login.php");
+    die();
+  }
   include './crud/crud.php';
 
   if(empty($_GET['id'])){
@@ -27,20 +32,20 @@
           $image = $target_file;
           $updated = update($id, $productname, $image, $price, $description, $categoryid);
           if($updated){
-            $info = "Successfully updated product information!";
+            $info = "Cập nhật thông tin sản phẩm thành công!";
           } else {
-            $info = "Unsuccessful product information update!";
+            $info = "Thất bại! Cập nhật thông tin không thành công!";
           }
           $data = getById($_GET['id']);
       } else {
-          $info = "Sorry, an error occurred while uploading your file!";
+          $info = "Có lỗi khi thực hiện tải hình ảnh!";
       }
     }else{
       $updated = update($id, $productname, $image, $price, $description, $categoryid);
       if($updated){
-        $info = "Successfully updated product information!";
+        $info = "Cập nhật thông tin sản phẩm thành công!";
       } else {
-        $info = "Unsuccessful product information update!";
+        $info = "Thất bại! Cập nhật thông tin không thành công!";
       }
       $data = getById($_GET['id']);
     }
@@ -69,10 +74,14 @@
         <div class="table-title">
           <div class="row">
             <div class="col-sm-6">
-              <h2>Manage <b>Product</b></h2>
+              <a href="./index.php" style="color: unset;"><h2>Quản Lý <b>Sản Phẩm</b></h2></a>
             </div>
-            <div class="col-sm-6">
-              <a href="./index.php" class="btn btn-success" ><i class="material-icons"></i> <span>Products List</span></a>
+            <div class="col-sm-3">
+              
+            </div>
+            <div class="col-sm-3">
+              <a href="./logout.php" class="btn" ><i class="material-icons"></i> <span>Đăng Xuất</span></a>
+              <a class="btn" ><i class="material-icons"></i> <span>Chào, <?php echo $_SESSION['username']; ?></span></a>
             </div>
           </div>
         </div>
@@ -103,7 +112,7 @@
             <input type="text" class="form-control" name="categoryid" required value="<?php echo $data[0]['categoryid']; ?>">
           </div>        
           <div class="form-group mt-5">
-            <input type="submit" style="width: 100%;" class="btn btn-success" value="Update Product">
+            <input type="submit" style="width: 100%;" class="btn btn-success" value="Cập Nhật Sản Phẩm">
           </div>
       </form>
     </div>
@@ -115,14 +124,14 @@
         <div class="modal-content">
           <form>
             <div class="modal-header">            
-              <h4 class="modal-title">Notification</h4>
+              <h4 class="modal-title">Thông Báo</h4>
               <button type="button" class="close x" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
             <div class="modal-body">          
               <p><?php echo $info; ?></p>
             </div>
             <div class="modal-footer">
-              <input type="button" class="btn btn-success x" data-dismiss="modal" value="Cancel">
+              <input type="button" class="btn btn-success x" data-dismiss="modal" value="Thoát">
             </div>
           </form>
         </div>

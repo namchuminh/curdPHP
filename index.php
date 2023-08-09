@@ -1,4 +1,10 @@
 <?php 
+	session_start();
+	if(!isset($_SESSION["logged"])){
+		header("Location: ./login.php");
+		die();
+	}
+
 	include './crud/crud.php';
 	$data = read();
  ?>
@@ -25,12 +31,19 @@
 			<div class="table-title">
 				<div class="row">
 					<div class="col-sm-6">
-						<h2>Manage <b>Product</b></h2>
+						<h2>Quản Lý <b>Sản Phẩm</b></h2>
 					</div>
-					<div class="col-sm-6">
-						<a href="./create.php" class="btn btn-success" ><i class="material-icons">&#xE147;</i> <span>Add New Product</span></a>
-					</div>
+					<div class="col-sm-3">
+		             	
+		            </div>
+		            <div class="col-sm-3">
+		            	<a href="./logout.php" class="btn" ><i class="material-icons"></i> <span>Đăng Xuất</span></a>
+		       			<a class="btn" ><i class="material-icons"></i> <span>Chào, <?php echo $_SESSION['username']; ?></span></a>
+		            </div>
 				</div>
+			</div>
+			<div class="col-sm-12 my-3 text-right">
+				<a href="./create.php" class="btn btn-success" ><i class="material-icons"></i> <span>Thêm Sản Phẩm</span></a>
 			</div>
 			<table class="table table-striped table-hover">
 				<thead>
@@ -72,7 +85,7 @@
 				</tbody>
 			</table>
 			<?php if($data == false){ ?>
-				<p class="text-center mt-4">Empty product list!</p>
+				<p class="text-center mt-4">Danh sách sản phẩm hiện đang trống!</p>
 			<?php } ?>
 		</div>
 	</div>        
@@ -84,16 +97,16 @@
 		<div class="modal-content">
 			<form>
 				<div class="modal-header">						
-					<h4 class="modal-title">Delete Product</h4>
+					<h4 class="modal-title">Xóa Sản Phẩm</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
 				<div class="modal-body">					
-					<p>Are you sure you want to delete these Records?</p>
-					<p class="text-warning"><small>This action cannot be undone.</small></p>
+					<p>Bạn có chắc chắn xóa sản phẩm này?</p>
+					<p class="text-warning"><small>Hành động này sẽ không được khôi phục.</small></p>
 				</div>
 				<div class="modal-footer">
-					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-					<a href="#" class="btn btn-danger delete_action">Delete</a>
+					<input type="button" class="btn btn-default" data-dismiss="modal" value="Không Xóa">
+					<a href="#" class="btn btn-danger delete_action">Xóa</a>
 				</div>
 			</form>
 		</div>

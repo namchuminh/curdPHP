@@ -46,7 +46,7 @@
         </div>
         <br> 
       <?php } ?>
-      <form method="POST">
+      <form method="POST" action="#">
         <input type="text" placeholder="Nhập tài khoản..." name="username" required>
         <input type="password" placeholder="Nhập mật khẩu..." name="password" required>
         <a href="#">Quên mật khẩu?</a>
